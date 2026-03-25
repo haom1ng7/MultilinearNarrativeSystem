@@ -50,7 +50,12 @@
       <div class="nodes-area" v-if="activeChapter">
         <div class="nodes-header">
           <h3>{{ activeChapter.title }} - 桥段编排</h3>
-          <el-button type="primary" @click="store.addNode(activeChapter.id)">添加对白/旁白</el-button>
+          <div class="nodes-actions">
+            <el-button type="warning" plain @click="importDialogVisible = true">
+              <el-icon><DocumentAdd /></el-icon> 智能导入长文本
+            </el-button>
+            <el-button type="primary" @click="store.addNode(activeChapter.id)">添加对白/旁白</el-button>
+          </div>
         </div>
         
         <div class="nodes-list">
@@ -102,18 +107,44 @@
         <el-empty description="请在左侧选择或创建一个章节以开始排版"></el-empty>
       </div>
     </div>
+
+    <!-- Smart Import Dialog -->
+    <el-dialog v-model="importDialogVisible" title="智能导入剧本长文本" width="50%" center>
+      <div style="margin-bottom: 8px; color: var(--text-secondary); font-size: 0.9rem;">
+        请在此处粘贴小说、大纲或剧本草稿，AI 会自动将其拆分为结构化的旁白与对白节点。
+      </div>
+      <el-input 
+        v-model="importText" 
+        type="textarea" 
+        :rows="12" 
+        placeholder="例如：\n波洛叹了口气：“这封信是伪造的。真凶还在车上。”\n午夜，东方快车停靠在风雪交加的站台..." 
+      />
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="importDialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="handleImportText" :loading="isImporting">
+            <el-icon><MagicStick /></el-icon> 开始拆分
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { EditPen, MagicStick, Plus, Delete, Close, User, Picture, Headset } from '@element-plus/icons-vue'
+import { EditPen, MagicStick, Plus, Delete, Close, User, Picture, Headset, DocumentAdd } from '@element-plus/icons-vue'
 import { useEditorStore } from '../stores/editor.js'
+import { apiService } from '../services/api.js'
 import { ElMessage } from 'element-plus'
 
 const store = useEditorStore()
 const activeChapterId = ref('')
 const editingChapterId = ref(null)
+
+const importDialogVisible = ref(false)
+const importText = ref('')
+const isImporting = ref(false)
 
 const emit = defineEmits(['extract'])
 
@@ -161,7 +192,49 @@ function handleExtract() {
   }
   
   ElMessage.success('剧本结构已锁定，正在转入一站式生成向导...')
+  ElMessage.success('剧本结构已锁定，正在转入一站式生成向导...')
   emit('extract')
+}
+
+async function handleImportText() {
+  if (!importText.value.trim()) {
+    ElMessage.warning('请输入需要导入的文本内容')
+    return
+  }
+  
+  isImporting.value = true
+  try {
+    const res = await apiService.parseScriptText({ text: importText.value, model: "deepseek-chat" })
+    
+    if (res && res.nodes && res.nodes.length > 0) {
+      if (!activeChapterId.value && store.chapters.length > 0) {
+        activeChapterId.value = store.chapters[0].id
+      } else if (!activeChapterId.value) {
+        activeChapterId.value = store.addChapter('导入的剧本')
+      }
+      
+      const cid = activeChapterId.value
+      for (const node of res.nodes) {
+        store.addNode(cid, {
+          type: node.type || 'narrative',
+          speaker: node.speaker || '',
+          text: node.text || '',
+          bg: node.bg || '',
+          music: node.music || ''
+        })
+      }
+      
+      ElMessage.success(`成功导入 ${res.nodes.length} 个节点段落！`)
+      importDialogVisible.value = false
+      importText.value = ''
+    } else {
+      ElMessage.error('无法拆文本，可能请求超时或网络问题。')
+    }
+  } catch (e) {
+    ElMessage.error(e.message || '导入失败')
+  } finally {
+    isImporting.value = false
+  }
 }
 </script>
 
@@ -275,6 +348,11 @@ function handleExtract() {
   margin: 0;
   font-size: 1.4rem;
   color: var(--text-primary);
+}
+
+.nodes-actions {
+  display: flex;
+  gap: 12px;
 }
 
 .nodes-list {

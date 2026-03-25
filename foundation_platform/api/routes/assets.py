@@ -1,8 +1,8 @@
 import os
 from fastapi import APIRouter, HTTPException
-from foundation_platform.api.models import AssetRegistrationRequest, ScriptExtractRequest, AssetStatus
+from foundation_platform.api.models import AssetRegistrationRequest, ScriptExtractRequest, AssetStatus, ParseScriptContentRequest, ParseScriptContentResponse
 from foundation_platform.api.state import asset_registry, extractor, attention_mgr
-from foundation_platform.core.llm_service import extract_assets_via_llm
+from foundation_platform.core.llm_service import extract_assets_via_llm, parse_long_text_to_nodes
 from foundation_platform.api.services.db_service import save_registry
 
 router = APIRouter(prefix="/assets", tags=["Assets"])
@@ -112,3 +112,19 @@ async def extract_from_script(req: ScriptExtractRequest):
             "bgm": len([c for c in candidates if c.get('type') == 'BGM'])
         }
     }
+
+
+@router.post("/parse-script-text", response_model=ParseScriptContentResponse)
+async def parse_script_text(req: ParseScriptContentRequest):
+    """
+    Phase 45: Smart Text Import
+    Accepts raw prose/script text and uses LLM to break it down into 
+    structured narrative and dialogue nodes.
+    """
+    try:
+        nodes = parse_long_text_to_nodes(req.text)
+        if not nodes:
+            raise HTTPException(status_code=500, detail="Failed to parse script text. Check API keys or text format.")
+        return ParseScriptContentResponse(nodes=nodes)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error parsing text: {str(e)}")

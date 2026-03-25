@@ -13,14 +13,19 @@
 ## 📺 演示
 
 <p align="center">
+  <video src="https://github.com/QUSETIONS/MultilinearNarrativeSystem/raw/main/docs/smart_import_demo.mp4" controls="controls" width="80%"></video>
+</p>
+<p align="center"><em>智能长文本导入 → AI 分解 → Mock 素材生成全流程链路演示</em></p>
+
+<p align="center">
   <img src="docs_assets/script_editor.png" width="80%" alt="剧本排版编辑器" />
 </p>
-<p align="center"><em>剧本排版 → 输入纯文字 → 一键提取核心素材</em></p>
+<p align="center"><em>剧本排版 → 节点撰写 → 提取核心素材</em></p>
 
 <p align="center">
   <img src="docs_assets/asset_workstation.png" width="80%" alt="素材工作站" />
 </p>
-<p align="center"><em>素材工作站 → AI 批量生成 → 实时进度追踪</em></p>
+<p align="center"><em>素材工作站 → 细化控制与管理</em></p>
 
 ---
 

@@ -59,5 +59,12 @@ class DescEnhanceRequest(BaseModel):
     asset_type: str
     description: str
 
+class ParseScriptContentRequest(BaseModel):
+    text: str
+    model: str = "deepseek-chat"
+
+class ParseScriptContentResponse(BaseModel):
+    nodes: List[Dict[str, Any]]
+
 class GodotExportRequest(BaseModel):
     script_json: str  # Full editor store JSON from exportJSON()

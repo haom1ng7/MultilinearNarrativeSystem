@@ -120,6 +120,17 @@ export const apiService = {
   },
   
   /**
+   * @param {{text: string, model: string}} payload 
+   * @returns {Promise<{nodes: Array}>}
+   */
+  parseScriptText(payload) {
+    return request(`${API_BASE}/assets/parse-script-text`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    })
+  },
+
+  /**
    * @param {{chapters: Array, characters: Array, use_llm: boolean}} payload 
    * @returns {Promise<{candidates: Array, stats: Object, extraction_mode: string, message: string}>}
    */

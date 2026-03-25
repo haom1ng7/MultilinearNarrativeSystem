@@ -260,3 +260,104 @@ def enhance_prompt_via_llm(asset_type: str, description: str, nar_context: str =
     except Exception as e:
         print(f"[LLM Enhance] Error: {e}")
         return description
+
+
+def parse_long_text_to_nodes(text: str) -> List[Dict[str, Any]]:
+    """
+    Phase 45: Smart Text Import.
+    Uses DeepSeek to intelligently parse a large block of prose/script text 
+    and split it into structured dialogue and narrative nodes.
+    """
+    config = _load_config().get("deepseek", {})
+    api_key = config.get("api_key", "")
+    base_url = config.get("base_url", "https://api.deepseek.com/v1")
+    model = config.get("model", "deepseek-chat")
+    
+    if not api_key:
+        print("[LLM Smart Import] No API key configured. Falling back to simple split.")
+        # Very naive fallback if no AI
+        return [{"type": "narrative", "speaker": "", "text": p, "bg": "", "music": ""} 
+                for p in text.splitlines() if p.strip()]
+    
+    system_prompt = """你是一个智能剧本排版助手。用户会给你一大段小说、文章或剧本草稿。
+你的任务是将整段长文本按照时间线和剧情发展，拆分成**离散的剧本节点（Nodes）**。
+
+剧本节点分为两种类型：
+1. `dialogue`（对白）：角色说话。必须提取出 `speaker`（角色名）和 `text`（说的内容，不要加引号）。
+2. `narrative`（旁白）：场景描述、动作、心理活动等。`speaker` 为空，内容放在 `text` 中。
+
+要求：
+- 请逐句或逐段分析，保持剧情连贯，不要遗漏原文信息。
+- 如果原文中隐含了场景切换，请在 `bg`（背景舞台）中标注出场景发生地（简短词组，如"火车站平台"、"餐车"）。
+- 如果你觉得当前节点适合配什么样的音乐，在 `music`（BGM指引）中简短填入（如"紧张悬疑"）。如果不重要可以留空。
+- 必须严格返回合法的 JSON 数组，不要夹带任何其他废话或markdown。
+
+输出格式示例：
+```json
+[
+  {
+    "type": "narrative",
+    "speaker": "",
+    "text": "午夜，东方快车停靠在风雪交加的站台。",
+    "bg": "火车站站台",
+    "music": "风雪声，低沉"
+  },
+  {
+    "type": "dialogue",
+    "speaker": "波洛",
+    "text": "这封信是伪造的。真凶还在车上。",
+    "bg": "火车站站台",
+    "music": "悬疑弦乐"
+  }
+]
+```"""
+
+    try:
+        response = requests.post(
+            f"{base_url}/chat/completions",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json"
+            },
+            json={
+                "model": model,
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": f"请拆分以下长文本为节点数组：\n\n{text[:20000]}"}
+                ],
+                "temperature": 0.3,
+                "max_tokens": 4000
+            },
+            timeout=45
+        )
+        
+        if response.status_code != 200:
+            print(f"[LLM Smart Import] API Error: {response.status_code} - {response.text[:200]}")
+            return []
+            
+        data = response.json()
+        content = data["choices"][0]["message"]["content"]
+        
+        if "```json" in content:
+            content = content.split("```json")[1].split("```")[0]
+        elif "```" in content:
+            content = content.split("```")[1].split("```")[0]
+            
+        nodes = json.loads(content.strip())
+        
+        # Ensure format conformity
+        for node in nodes:
+            node.setdefault("type", "narrative")
+            node.setdefault("speaker", "")
+            node.setdefault("text", "")
+            node.setdefault("bg", "")
+            node.setdefault("music", "")
+            if node["type"] not in ["dialogue", "narrative"]:
+                node["type"] = "narrative"
+                
+        return nodes
+        
+    except Exception as e:
+        print(f"[LLM Smart Import] Error: {e}")
+        return []
+

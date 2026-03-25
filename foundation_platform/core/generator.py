@@ -47,13 +47,39 @@ class GeneratorRegistry:
         return list(cls._generators.keys())
 
 class MockGenerator(BaseGenerator):
-    def generate(self, description: str, output_path: str) -> bool:
-        print(f"Mock generating asset: {description[:60]}... -> {output_path}")
+    def generate(self, description: str, output_path: str, **kwargs) -> bool:
+        print(f"[Mock] generating asset: {description[:60]}... -> {output_path}")
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         try:
-            with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(f"Placeholder for asset generation\n")
-                f.write(f"Description: {description}\n")
+            if output_path.lower().endswith(('.png', '.jpg', '.jpeg')):
+                try:
+                    from PIL import Image, ImageDraw, ImageFont
+                    import random
+                    
+                    # Generate a colored placeholder image
+                    bg_color = (random.randint(50, 200), random.randint(50, 200), random.randint(50, 200))
+                    img = Image.new('RGB', (1024, 1024), color=bg_color)
+                    draw = ImageDraw.Draw(img)
+                    
+                    # Draw a border
+                    draw.rectangle([10, 10, 1014, 1014], outline=(255, 255, 255), width=5)
+                    
+                    # Draw text
+                    # We don't have a guaranteed font, so we use default
+                    # Because default is tiny, we just draw lines or repeated text
+                    text = f"MOCK ASSET\n\n{description[:50]}"
+                    draw.text((50, 500), text, fill=(255, 255, 255))
+                    
+                    img.save(output_path)
+                except ImportError:
+                    # Fallback to 1x1 base64 png if PIL is missing
+                    dummy_png_b64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                    with open(output_path, 'wb') as f:
+                        f.write(base64.b64decode(dummy_png_b64))
+            else:
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    f.write(f"Placeholder for asset generation\n")
+                    f.write(f"Description: {description}\n")
             return True
         except Exception as e:
             print(f"Error during mock generation: {e}")
