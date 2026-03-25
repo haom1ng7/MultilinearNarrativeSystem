@@ -13,7 +13,7 @@
 ## 📺 演示
 
 <p align="center">
-  <video src="https://github.com/QUSETIONS/MultilinearNarrativeSystem/raw/main/docs/smart_import_demo.mp4" controls="controls" width="80%"></video>
+  <img src="docs_assets/smart_import_final.webp" width="80%" alt="Smart Import Demo" />
 </p>
 <p align="center"><em>智能长文本导入 → AI 分解 → Mock 素材生成全流程链路演示</em></p>
 

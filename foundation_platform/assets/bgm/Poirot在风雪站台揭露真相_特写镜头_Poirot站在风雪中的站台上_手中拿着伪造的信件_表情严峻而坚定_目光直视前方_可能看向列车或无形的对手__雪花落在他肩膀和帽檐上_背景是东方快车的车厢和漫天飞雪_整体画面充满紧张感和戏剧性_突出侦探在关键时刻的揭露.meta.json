@@ -1,0 +1,8 @@
+{
+  "asset_type": "BGM",
+  "name": "Poirot在风雪站台揭露真相_特写镜头_Poirot站在风雪中的站台上_手中拿着伪造的信件_表情严峻而坚定_目光直视前方_可能看向列车或无形的对手__雪花落在他肩膀和帽檐上_背景是东方快车的车厢和漫天飞雪_整体画面充满紧张感和戏剧性_突出侦探在关键时刻的揭露.mp3",
+  "description": "Poirot在风雪站台揭露真相（特写镜头，Poirot站在风雪中的站台上，手中拿着伪造的信件，表情严峻而坚定，目光直视前方（可能看向列车或无形的对手），雪花落在他肩膀和帽檐上，背景是东方快车的车厢和漫天飞雪，整体画面充满紧张感和戏剧性，突出侦探在关键时刻的揭露。）",
+  "prompt": "Standard centered composition. Poirot在风雪站台揭露真相（特写镜头，Poirot站在风雪中的站台上，手中拿着伪造的信件，表情严峻而坚定，目光直视前方（可能看向列车或无形的对手），雪花落在他肩膀和帽檐上，背景是东方快车的车厢和漫天飞雪，整体画面充满紧张感和戏剧性，突出侦探在关键时刻的揭露。）, ornate art deco patterns, vintage atmosphere, rich textures, smoke from steam engine, luxury materiality. High quality asset. [PIPE-NAR: [global_config: Theme: 1930s Detective Mystery, Era: 1930s] | [attention_stage: Focus Tokens: (1930s Detective Mystery:1.2), (1930s:1.1), (c...]] [FOCUS: (1930s Detective Mystery:1.2) (1930s:1.1) (cold, tense mood:1.25)] (Logical Entanglement: (1930s Detective Mystery:1.2) (1930s:1.1)) (NAR Depth-Reinforcement: (1930s Detective Mystery:1.2) (1930s:1.1))",
+  "status": "AWAITING_AUDIO_MODEL",
+  "note": "This is a placeholder. Connect a real audio AI provider (Suno/StableAudio/MusicGen) to generate actual audio."
+}

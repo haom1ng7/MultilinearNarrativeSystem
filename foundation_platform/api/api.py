@@ -26,8 +26,11 @@ app.add_middleware(
 )
 
 ASSETS_DIR = os.path.join(PROJECT_ROOT, "assets")
+ASSETS_DIR_FP = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets")
 os.makedirs(ASSETS_DIR, exist_ok=True)
-app.mount("/static/assets", StaticFiles(directory=ASSETS_DIR), name="static_assets")
+os.makedirs(ASSETS_DIR_FP, exist_ok=True)
+# Serve both possible locations for generated assets
+app.mount("/static/assets", StaticFiles(directory=ASSETS_DIR_FP), name="static_assets")
 
 app.include_router(health.router)
 app.include_router(ws.router)

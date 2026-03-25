@@ -1,0 +1,8 @@
+{
+  "asset_type": "BGM",
+  "name": "风雪声与低沉氛围.mp3",
+  "description": "持续的风雪环境音，夹杂着低沉的、不祥的弦乐铺垫，营造寒冷、孤寂和悬疑的氛围",
+  "prompt": "Standard centered composition. 持续的风雪环境音，夹杂着低沉的、不祥的弦乐铺垫，营造寒冷、孤寂和悬疑的氛围, ornate art deco patterns, vintage atmosphere, rich textures, smoke from steam engine, luxury materiality. High quality asset. [PIPE-NAR: [global_config: Theme: 1930s Detective Mystery, Era: 1930s] | [attention_stage: Focus Tokens: (1930s Detective Mystery:1.2), (cold, mystery ...]] [FOCUS: (1930s Detective Mystery:1.2) (cold, mystery mood:1.25) (1930s:1.1) (持续的风雪环境音，夹杂着低沉的、不祥的弦乐铺垫，营造寒冷、孤寂和悬疑的氛围:1.3)] (Logical Entanglement: (1930s Detective Mystery:1.2) (1930s:1.1)) (NAR Depth-Reinforcement: (1930s Detective Mystery:1.2) (1930s:1.1))",
+  "status": "AWAITING_AUDIO_MODEL",
+  "note": "This is a placeholder. Connect a real audio AI provider (Suno/StableAudio/MusicGen) to generate actual audio."
+}

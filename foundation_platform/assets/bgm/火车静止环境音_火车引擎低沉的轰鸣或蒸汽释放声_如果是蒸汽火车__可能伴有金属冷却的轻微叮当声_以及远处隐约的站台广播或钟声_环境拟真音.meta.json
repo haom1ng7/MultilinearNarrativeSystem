@@ -1,0 +1,8 @@
+{
+  "asset_type": "BGM",
+  "name": "火车静止环境音_火车引擎低沉的轰鸣或蒸汽释放声_如果是蒸汽火车__可能伴有金属冷却的轻微叮当声_以及远处隐约的站台广播或钟声_环境拟真音.mp3",
+  "description": "火车静止环境音（火车引擎低沉的轰鸣或蒸汽释放声（如果是蒸汽火车），可能伴有金属冷却的轻微叮当声，以及远处隐约的站台广播或钟声，环境拟真音。）",
+  "prompt": "Standard centered composition. 火车静止环境音（火车引擎低沉的轰鸣或蒸汽释放声（如果是蒸汽火车），可能伴有金属冷却的轻微叮当声，以及远处隐约的站台广播或钟声，环境拟真音。）, ornate art deco patterns, vintage atmosphere, rich textures, smoke from steam engine, luxury materiality. High quality asset. [PIPE-NAR: [global_config: Theme: 1930s Detective Mystery, Era: 1930s] | [attention_stage: Focus Tokens: (1930s Detective Mystery:1.2), (1930s:1.1)]] [FOCUS: (1930s Detective Mystery:1.2) (1930s:1.1)] (Logical Entanglement: (1930s Detective Mystery:1.2) (1930s:1.1) (cold, tense, mystery mood:1.25)) (NAR Depth-Reinforcement: (1930s Detective Mystery:1.2) (1930s:1.1) (cold, tense, mystery mood:1.25))",
+  "status": "AWAITING_AUDIO_MODEL",
+  "note": "This is a placeholder. Connect a real audio AI provider (Suno/StableAudio/MusicGen) to generate actual audio."
+}

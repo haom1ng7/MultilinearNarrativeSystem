@@ -1,0 +1,8 @@
+{
+  "asset_type": "BGM",
+  "name": "伪造的信件.mp3",
+  "description": "一张泛黄或略显陈旧的纸张，上面有手写的文字，可能带有刻意模仿的笔迹或伪造的印章，纸张边缘可能有不规则的撕裂或折痕，材质为普通书写纸，在昏暗光线下细节模糊，暗示其可疑性。",
+  "prompt": "Standard centered composition. 一张泛黄或略显陈旧的纸张，上面有手写的文字，可能带有刻意模仿的笔迹或伪造的印章，纸张边缘可能有不规则的撕裂或折痕，材质为普通书写纸，在昏暗光线下细节模糊，暗示其可疑性。, ornate art deco patterns, vintage atmosphere, rich textures, smoke from steam engine, luxury materiality. High quality asset. [PIPE-NAR: [global_config: Theme: 1930s Detective Mystery, Era: 1930s] | [attention_stage: Focus Tokens: (1930s Detective Mystery:1.2), (1930s:1.1)]] [FOCUS: (1930s Detective Mystery:1.2) (1930s:1.1)] (Logical Entanglement: (1930s Detective Mystery:1.2) (1930s:1.1) (cold mood:1.25)) (NAR Depth-Reinforcement: (1930s Detective Mystery:1.2) (1930s:1.1) (cold mood:1.25))",
+  "status": "AWAITING_AUDIO_MODEL",
+  "note": "This is a placeholder. Connect a real audio AI provider (Suno/StableAudio/MusicGen) to generate actual audio."
+}

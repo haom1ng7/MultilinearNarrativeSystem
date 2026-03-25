@@ -186,6 +186,18 @@ const props = defineProps({
 const emit = defineEmits(['generate', 'view-monitor', 'feedback', 'generate-variants'])
 const imgError = ref(false)
 const previewDialogVisible = ref(false)
+const cacheBuster = ref(Date.now())
+
+import { watch } from 'vue'
+watch(
+  () => props.asset.status,
+  (newStatus) => {
+    if (newStatus === 'FOUND') {
+      imgError.value = false
+      cacheBuster.value = Date.now()
+    }
+  }
+)
 
 // History / Variants State
 const historyDialogVisible = ref(false)
@@ -221,6 +233,8 @@ async function rollbackToVariant(url) {
     historyDialogVisible.value = false
     // Trigger image re-load by forcing an update (changing a key or reloading cache-bust is handled by parent polling usually)
     // Here we can just notify parent or wait for next status poll
+    cacheBuster.value = Date.now()
+    imgError.value = false
   } catch(e) {
     ElMessage.error('回退失败: ' + e.message)
   }
@@ -257,7 +271,7 @@ const isImageAsset = computed(() => {
 const imageUrl = computed(() => {
   if (!isImageAsset.value || imgError.value) return ''
   // Serve from backend static files or local path
-  return `${API_BASE}/static/${props.asset.path}`
+  return `${API_BASE}/static/${props.asset.path}?t=${cacheBuster.value}`
 })
 
 const statusText = computed(() => {

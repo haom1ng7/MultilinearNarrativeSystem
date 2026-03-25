@@ -1,0 +1,8 @@
+{
+  "asset_type": "BGM",
+  "name": "火车停靠声.mp3",
+  "description": "火车缓慢停靠站台时，蒸汽释放、金属摩擦的轻微声响",
+  "prompt": "Standard centered composition. 火车缓慢停靠站台时，蒸汽释放、金属摩擦的轻微声响, ornate art deco patterns, vintage atmosphere, rich textures, smoke from steam engine, luxury materiality. High quality asset. [PIPE-NAR: [global_config: Theme: 1930s Detective Mystery, Era: 1930s] | [attention_stage: Focus Tokens: (1930s Detective Mystery:1.2), (火车缓慢停靠站台时，蒸汽释放...]] [FOCUS: (1930s Detective Mystery:1.2) (火车缓慢停靠站台时，蒸汽释放、金属摩擦的轻微声响:1.3) (1930s:1.1)] (Logical Entanglement: (1930s Detective Mystery:1.2) (cold, mystery mood:1.25) (1930s:1.1) (持续的风雪环境音，夹杂着低沉的、不祥的弦乐铺垫，营造寒冷、孤寂和悬疑的氛围:1.3)) (NAR Depth-Reinforcement: (1930s Detective Mystery:1.2) (cold, mystery mood:1.25) (1930s:1.1) (持续的风雪环境音，夹杂着低沉的、不祥的弦乐铺垫，营造寒冷、孤寂和悬疑的氛围:1.3))",
+  "status": "AWAITING_AUDIO_MODEL",
+  "note": "This is a placeholder. Connect a real audio AI provider (Suno/StableAudio/MusicGen) to generate actual audio."
+}

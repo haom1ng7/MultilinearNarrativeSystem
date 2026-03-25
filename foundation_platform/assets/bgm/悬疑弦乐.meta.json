@@ -1,0 +1,8 @@
+{
+  "asset_type": "BGM",
+  "name": "悬疑弦乐.mp3",
+  "description": "低沉、缓慢的弦乐，带有不和谐音和渐强的节奏，营造紧张、悬疑、不安的情绪，可能伴有轻微的风雪环境音效融入，乐器以小提琴和大提琴为主，风格古典悬疑。",
+  "prompt": "Standard centered composition. 低沉、缓慢的弦乐，带有不和谐音和渐强的节奏，营造紧张、悬疑、不安的情绪，可能伴有轻微的风雪环境音效融入，乐器以小提琴和大提琴为主，风格古典悬疑。, ornate art deco patterns, vintage atmosphere, rich textures, smoke from steam engine, luxury materiality. High quality asset. [PIPE-NAR: [global_config: Theme: 1930s Detective Mystery, Era: 1930s] | [attention_stage: Focus Tokens: (1930s Detective Mystery:1.2), (1930s:1.1), (c...]] [FOCUS: (1930s Detective Mystery:1.2) (1930s:1.1) (cold, tense, mystery mood:1.25)] (Logical Entanglement: (1930s Detective Mystery:1.2) (1930s:1.1) (cold mood:1.25)) (NAR Depth-Reinforcement: (1930s Detective Mystery:1.2) (1930s:1.1) (cold mood:1.25))",
+  "status": "AWAITING_AUDIO_MODEL",
+  "note": "This is a placeholder. Connect a real audio AI provider (Suno/StableAudio/MusicGen) to generate actual audio."
+}
